@@ -1,6 +1,11 @@
 /*
 This is empty on purpose! Your code to build the resume will go here.
  */
+
+
+
+
+
 var skills=["Java","Javascript","HTML","CSS"];
 
  
@@ -8,7 +13,13 @@ var bio = {
 	"name":"Archit Jain",
 	"role":"Software Developer",
 	"image":"images/dp.jpg",
-	"skills":["Java","Javascript","HTML","CSS"]
+	"skills":["Java","Javascript","HTML","CSS"],
+	"contacts":{
+				"Mobile":1111111,
+				"mail":"jain.archit04@yahoo.com",	
+				"location":"Tempe"	
+
+	}
 }
 
 var workex = {
@@ -19,14 +30,16 @@ var workex = {
 		"start_year":2012,
 		"end_year":2015,
 		"title":"ASE",
-		"desc":"worked as software developer. majorly in java"
+		"desc":"worked as software developer. majorly in java",
+		"location":"New York"
 	},
 	{
 		"company":"Misys",
 		"start_year":2012,
 		"end_year":2012,
 		"title":"Intern",
-		"desc":"worked as intern. majorly in javascript"
+		"desc":"worked as intern. majorly in javascript",
+		"location":"Phoenix"
 	}
 
 	]
@@ -39,12 +52,14 @@ var education = {
 {
 	"school":"Arizona State University",
 	"degree":"Masters",
-	"major":"Computer Science"
+	"major":"Computer Science",
+	"location":"Tempe"
 },
 {
 	"school":"VIT",
 	"degree":"Bachelors",
-	"major":"Computer Science"
+	"major":"Computer Science",
+	"location":"India"
 }
 
 ],
@@ -64,10 +79,12 @@ var projects = {
   "projs":[
    {
   		"title":"Search Engine",
+  		"year":2015,
   		"description":"implemneted page rank algorithm"
   	},
   	{
   		"title":"GradeBook Application",
+  		"year":2016,
   		"description":"done by implementing REST API"
   	}
 
@@ -76,6 +93,26 @@ var projects = {
 
 
 }
+
+
+//displaying projects
+projects.display = function(){
+	for(i=0;i<projects.projs.length;i++){
+		
+		$("#projects").append(HTMLprojectStart);
+		var projTitle =  HTMLprojectTitle.replace("%data%",projects.projs[i].title);
+		$(".project-entry:last").append(projTitle);
+		var projYear =  HTMLprojectDescription.replace("%data%",projects.projs[i].year);
+		$(".project-entry:last").append(projYear);
+		
+
+		var projDesc =  HTMLprojectDescription.replace("%data%",projects.projs[i].description);
+		$(".project-entry:last").append(projDesc);
+		
+		}
+}
+
+projects.display();
 
 
 //header information
@@ -99,7 +136,8 @@ if(bio.skills.length>0){
 	$("#header").append(HTMLskillsStart);
 	for(skill in bio.skills){
 		var formattedSkill = HTMLskills.replace("%data%",bio.skills[skill])	;
-		$("#skills").append(formattedSkill);
+		$("#skills:last").append(formattedSkill);
+		$("#skills:last").append("</br>");
 }
 
 }
@@ -113,8 +151,8 @@ if(workex.employers.length>0){
 	for(emp in workex.employers){
 		$("#workExperience").append(HTMLworkStart);
 		var formattedEmployer = HTMLworkEmployer.replace("%data%",workex.employers[emp].company);
-		var formattedTitle = HTMLworkTitle.replace("%data",workex.employers[emp].title);
-		var formattedDesc = HTMLworkDescription.replace("%data",workex.employers[emp].desc)
+		var formattedTitle = HTMLworkTitle.replace("%data%",workex.employers[emp].title);
+		var formattedDesc = HTMLworkDescription.replace("%data%",workex.employers[emp].desc)
 		var formattedEmpTitle = formattedEmployer + "  " + formattedTitle;
 		$(".work-entry:last").append(formattedEmpTitle);
 		$(".work-entry:last").append(formattedDesc);
@@ -122,4 +160,18 @@ if(workex.employers.length>0){
 	}
 }
 }
+
 displayWork();
+
+
+
+
+// to identify click coordnates
+$(document).click(function(event){
+
+var x = event.pageX;
+var y = event.pageY;
+logClicks(x,y);
+});
+
+$("#map").append(googleMap);
